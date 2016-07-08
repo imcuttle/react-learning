@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>React Tutorial</title>
+    <!-- Not present in the tutorial. Just for basic styling. -->
+    <link rel="stylesheet" href="css/base.css" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.16/browser.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.min.js"></script>
+
+    <link rel="stylesheet" href="css/my.css" />
+  </head>
+  <body>
+
+    <div id="menubar"></div>
+    <div id="add-on"></div>
+    <div id="profile"></div>
+    <div id="content"></div>
+    <script type="text/babel" src="scripts/example.js"></script>
+    <script type="text/babel">
+      var MenuPanel = React.createClass({
+        render : function () {
+          var data = this.state.data.map((x,i)=>{
+            return <Menu item={x} key={i}/>;
+          });
+          return (
+            <div className='menu-panel'>
+              {data}
+            </div>
+          );
+        },
+        getInitialState : function () {
+          return {
+            data:[
+              {
+                title:'Help',
+                options:[
+                  {
+                    text:'About',
+                    val:'about'
+                  },
+                  {}
+                ]
+              },
+              {
+                title:'Team',
+                options:[
+                  {
+                    text:'People',
+                    val:'people'
+                  },
+                  {
+                    text:'People2',
+                    val:'people2'
+                  }
+                ]
+              },
+              {
+                title:'Team2',
+                options:[
+                  {
+                    text:'People',
+                    val:'people'
+                  },
+                  {
+                    text:'People2',
+                    val:'people2'
+                  }
+                ]
+              }
+            ]
+          };
+        }
+      });
+      var Menu = React.createClass({
+        render : function () {
+          console.log(this.props.item);
+          var data = this.props.item.options.map((x,i)=>{
+            return <Option item={x} key={i}/>;
+          });
+
+          return (
+            <div className='menu'>
+              <span className='title'>{this.props.item.title}</span>
+              <div ref='options' className='options'>
+                {data}
+              </div>
+            </div>
+          );
+        }
+      });
+      var Option = React.createClass({
+        render : function () {
+//          console.log(this.props.item)
+          return (
+            !!this.props.item.text
+              ? <div className='option' onClick={this.click} value={this.props.item.val}>{this.props.item.text}</div> : <hr />
+          )
+        },
+        click : function (e) {
+          alert(this.props.item.text);
+        }
+      });
+      ReactDOM.render(<MenuPanel />,document.getElementById('menubar'));
+
+
+      // To get started with this tutorial running your own code, simply remove
+      // the script tag loading scripts/example.js and start writing code here.
+      var AddOnList = React.createClass({
+        render : function () {
+          var data = this.props.lists.map(x=>{return (<li>{x}</li>)});
+          return (
+            <ol>{data}</ol>
+          )
+        }
+      });
+      var Add_On = React.createClass({
+        render : function () {
+          return (
+            <div>
+              <h2>Add On</h2>
+              <AddOnList lists={this.state.lists}/>
+              <input ref="input" onChange={this.onChange}/>
+              <button onClick={this.onClick}>{'Add on #'+(this.state.lists.length+1)}</button>
+            </div>
+          )
+        },
+        onChange:function(e){
+
+        },
+        onClick : function (e) {
+          this.setState({lists:this.state.lists.concat(this.refs.input.value)});
+        },
+        getInitialState : function(){
+          return {lists:[]};
+        }
+      })
+      ReactDOM.render(<Add_On />,document.getElementById('add-on'));
+
+
+
+
+
+
+      var BaseInfo = React.createClass({
+        componentDidMount : function () {
+        },
+        getInitialState:function () {
+          return {name:'Moyu',gender:'Boy',age:10};
+        },
+        onChange:function (e) {
+          this.setState({name:this.refs.input.value});
+        },
+        onClick1:function (e) {
+          alert(JSON.stringify(this.state,null,4));
+        },
+        onClick2:function (e) {
+          alert(JSON.stringify(this.props,null,4));
+        },
+        onClick3:function (e) {
+          console.log(this.refs.input);
+        },
+        render:function () {
+          return (
+            <div>
+              <h2>BaseInfo</h2>
+              <h3>props</h3>
+              <strong>{this.props.name}</strong><br/>
+              <strong>{this.props.gender}</strong><br/>
+              <strong>{this.props.age}</strong><br/>
+              <h3>state</h3>
+              <strong>{this.state.name}</strong><br/>
+              <strong>{this.state.gender}</strong><br/>
+              <strong>{this.state.age}</strong><br/>
+              <h3>Events</h3>
+              <button onClick={this.onClick1}>Alert State</button>
+              <button onClick={this.onClick2}>Alert Props</button>
+              <button onClick={this.onClick3}>Console Refs</button>
+              <input onChange={this.onChange} ref="input" value={this.state.name} />
+            </div>
+          );
+        },
+      });
+      ReactDOM.render(
+        <BaseInfo name="Yc" gender="Man" age="20" />,
+        document.getElementById('profile')
+      );
+    </script>
+  </body>
+</html>

@@ -1,0 +1,91 @@
+/*MenuPanel*/
+.menu-panel:after{
+  content: ' ';
+  clear: both;
+  height: 0;
+  display: block;
+}
+.menu-panel {
+  position: fixed;
+  display: block;
+  width: 100%;
+  background: #eee;
+  padding: 0;
+  margin: 0;
+  right: 0;
+  top: 0;
+}
+
+.menu-panel .menu {
+  float: left;
+  cursor: pointer;
+  padding-right: 8px;
+}
+
+.menu-panel .menu.right {
+  float: right;
+  cursor: auto;
+  padding-right: 0;
+  text-align: right;
+}
+
+.menu-panel .menu .title {
+  display: inline-block;
+  color: #888;
+  margin: 0;
+  padding: 8px;
+}
+
+.menu-panel .menu .options {
+  position: absolute;
+  display: none;
+  padding: 5px 0;
+  background: #eee;
+  width: 150px;
+}
+/*当menu:hover触发时， .options 改变*/
+.menu-panel .menu:hover .options {
+  display: block;
+}
+
+.menu-panel .menu .options hr {
+  border-color: #ddd;
+}
+
+.menu-panel .menu .options .option {
+  color: #666;
+  background-color: transparent;
+  padding: 5px 10px;
+  margin: 0 !important;
+}
+
+.menu-panel .menu .options .option:hover {
+  color: #fff;
+  background-color: #08f;
+}
+
+.menu-panel {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+
+  /* No support for these yet */
+  -o-user-select: none;
+  user-select: none;
+}
+
+
+
+.hide{
+  display: none;!important;
+}
+
+.menu  hr {
+  display: block;
+  border: 0;
+  border-top: 1px solid #ccc;
+}
+
+
+
+
